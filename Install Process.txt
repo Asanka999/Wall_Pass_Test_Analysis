@@ -1,0 +1,24 @@
+# Needed Libraries 
+
+	pip install opencv-python numpy
+
+#to run the program
+
+
+
+## when get live performance
+
+python wall_pass_detector.py --input 0 --ball_color (colour) --wall_color (colour) --debug
+
+	ex: python wall_pass_detector.py --input 0 --ball_color orange --wall_color blue --debug
+
+
+
+## when analysis vedio performance
+
+python wall_pass_detector.py --input (input video path) --ball_color (colour) --wall_color (colour) --debug
+
+	ex: python wall_pass_detector.py --input performance.mp4 --ball_color orange --wall_color blue --debug
+
+
+(should perform under quality light status)

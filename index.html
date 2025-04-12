@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Tennis Wall Pass Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="ball-animation"></div>
+   
+    <header>
+        <h1>Table Tennis Wall Pass Tracker</h1>
+        <p>Advanced computer vision tracking for table tennis training</p>
+    </header>
+   
+    <main>
+        <div class="video-container">
+            <div class="video-placeholder">
+                <div class="spinner"></div>
+                <p>Configure settings and click "Start Detection" to begin</p>
+            </div>
+            <video id="videoFeed" autoplay></video>
+        </div>
+       
+        <div class="stats-container">
+            <div class="stat-box">
+                <h3 id="passCount">0</h3>
+                <p>Wall Passes</p>
+            </div>
+            <div class="stat-box">
+                <h3 id="timer">00:00</h3>
+                <p>Session Time</p>
+            </div>
+            <div class="stat-box">
+                <h3 id="passFPS">0</h3>
+                <p>Passes/Min</p>
+            </div>
+        </div>
+       
+        <div class="controls-container">
+            <div class="control-panel">
+                <h2>Input Settings</h2>
+                <div class="form-group">
+                    <label for="videoSource">Video Source</label>
+                    <select id="videoSource">
+                        <option value="webcam">Webcam</option>
+                        <option value="file">Video File</option>
+                    </select>
+                </div>
+               
+                <div class="form-group" id="fileUploadGroup" style="display: none;">
+                    <label for="videoFile">Upload Video File</label>
+                    <input type="file" id="videoFile" accept="video/*">
+                </div>
+               
+                <div class="form-group" id="webcamSelectGroup">
+                    <label for="cameraSelect">Select Camera</label>
+                    <select id="cameraSelect">
+                        <option value="0">Default Camera</option>
+                    </select>
+                </div>
+               
+                <div class="alert alert-warning">
+                    For best results, ensure good lighting and a clearly visible wall marker.
+                </div>
+               
+                <button id="startButton" class="btn-success pulse">Start Detection</button>
+            </div>
+           
+            <div class="control-panel">
+                <h2>Detection Settings</h2>
+                <div class="form-group">
+                    <label for="ballColor">Ball Color</label>
+                    <select id="ballColor">
+                        <option value="orange">Orange</option>
+                        <option value="white">White</option>
+                        <option value="yellow">Yellow</option>
+                    </select>
+                </div>
+               
+                <div class="form-group">
+                    <label for="wallColor">Wall Marker Color</label>
+                    <select id="wallColor">
+                        <option value="blue">Blue</option>
+                        <option value="red">Red</option>
+                        <option value="green">Green</option>
+                    </select>
+                </div>
+               
+                <div class="form-group">
+                    <label for="bufferSize">Trajectory Buffer Size</label>
+                    <input type="number" id="bufferSize" min="16" max="128" value="64">
+                </div>
+               
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="debugMode">
+                    <label for="debugMode">Enable Debug Mode</label>
+                </div>
+               
+                <div class="button-group">
+                    <button id="resetButton" class="btn-secondary">Reset Stats</button>
+                    <button id="settingsButton" class="btn-primary">Advanced Settings</button>
+                </div>
+            </div>
+        </div>
+       
+        <div class="control-panel">
+            <h2>Performance Visualization</h2>
+            <div class="visualization">
+                <svg class="trajectory-line" viewBox="0 0 1000 200" preserveAspectRatio="none">
+                    <path id="trajectoryPath" d="M0,100 L1000,100" stroke="#3498db" stroke-width="3" fill="none" />
+                    <circle id="ballPosition" cx="500" cy="100" r="8" fill="#f39c12" />
+                </svg>
+            </div>
+            <div class="graph-container" id="passGraph"></div>
+        </div>
+    </main>
+   
+    <div class="notification" id="notification">Wall pass detected!</div>
+   
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Advanced Settings</h2>
+           
+            <div class="form-group">
+                <label for="minBallRadius">Min Ball Radius (px)</label>
+                <input type="number" id="minBallRadius" min="3" max="30" value="5">
+            </div>
+           
+            <div class="form-group">
+                <label for="maxBallRadius">Max Ball Radius (px)</label>
+                <input type="number" id="maxBallRadius" min="10" max="100" value="30">
+            </div>
+           
+            <div class="form-group">
+                <label for="resolution">Video Resolution</label>
+                <select id="resolution">
+                    <option value="720p">HD (720p)</option>
+                    <option value="1080p">Full HD (1080p)</option>
+                    <option value="480p">SD (480p)</option>
+                </select>
+            </div>
+           
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="enableSound">
+                <label for="enableSound">Enable Sound Effects</label>
+            </div>
+           
+            <button id="saveSettings" class="btn-primary" style="width: 100%; margin-top: 1rem;">Save Settings</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Table Tennis Wall Pass Tracker | Powered by OpenCV & Computer Vision</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
